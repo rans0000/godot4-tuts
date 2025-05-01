@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://l3t5gtsj4h5t"]
+[gd_scene load_steps=11 format=3 uid="uid://l3t5gtsj4h5t"]
 
 [ext_resource type="Texture2D" uid="uid://b0yf3salaasnx" path="res://assets/sprites/pacman-spritesheet.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cya4xfbojeyr1" path="res://scripts/state_machine.gd" id="2_md0e3"]
-[ext_resource type="Script" uid="uid://c1vjladpvy52s" path="res://scripts/state_enemy_idle.gd" id="3_4ra3w"]
+[ext_resource type="Script" uid="uid://leii2fdcfyqc" path="res://scripts/state_enemy_wander.gd" id="3_4ra3w"]
+[ext_resource type="Script" uid="uid://c1vjladpvy52s" path="res://scripts/state_enemy_idle.gd" id="3_5uy6h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_md0e3"]
 atlas = ExtResource("1_7p1mj")
@@ -71,7 +72,10 @@ shape = SubResource("CircleShape2D_7p1mj")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("2_md0e3")
-current_state = NodePath("StateIdle")
+current_state = NodePath("StateWander")
 
 [node name="StateIdle" type="Node" parent="StateMachine"]
+script = ExtResource("3_5uy6h")
+
+[node name="StateWander" type="Node" parent="StateMachine"]
 script = ExtResource("3_4ra3w")
