@@ -1,11 +1,17 @@
-[gd_scene load_steps=15 format=4 uid="uid://dky3yhqev28rp"]
+[gd_scene load_steps=18 format=4 uid="uid://dky3yhqev28rp"]
 
+[ext_resource type="Script" uid="uid://dqh1j4ytucrxy" path="res://scripts/game_manager.gd" id="1_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://b0m0omxaris3x" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://c4jqmasoprp5s" path="res://assets/sprites/world_tileset.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://do2dhpqx3fi8o" path="res://scenes/platform.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://duochors5ptty" path="res://scenes/coin.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://bxylbc774mk3g" path="res://scenes/enemy.tscn" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://bv62kwyk1q7wt" path="res://scenes/killzone.tscn" id="5_iywne"]
+[ext_resource type="FontFile" uid="uid://d5bbfu0f0r68" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="8_gee14"]
+
+[sub_resource type="Theme" id="Theme_0tnpc"]
+default_font = ExtResource("8_gee14")
+default_font_size = 8
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -345,6 +351,28 @@ _data = {
 }
 
 [node name="Game" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_u5sy4")
+
+[node name="HUD" type="Node" parent="GameManager"]
+
+[node name="Panel" type="Panel" parent="GameManager/HUD"]
+offset_left = 120.0
+offset_top = -8.0
+offset_right = 208.0
+offset_bottom = 16.0
+
+[node name="scoreboard" type="Label" parent="GameManager/HUD/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 80.0
+offset_bottom = 16.0
+theme = SubResource("Theme_0tnpc")
+text = "Score 0"
+metadata/_edit_use_anchors_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAEAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAEAAAADAAYAAAAAAAEAAAAEAAYAAAABAAAAAAAFAAYAAAABAAAAAAADAAcAAAABAAAAAAAEAAcAAAABAAAAAAAFAAcAAAABAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAEAAAAUAAQAAAABAAEAAAAUAAMAAAABAAEAAAAVAAMAAAACAAEAAAAVAAQAAAADAAEAAAAWAAMAAAACAAEAAAAWAAQAAAACAAEAAAAWAAUAAAACAAEAAAAUAAIAAAACAAAAAAAVAAIAAAACAAAAAAAWAAIAAAACAAAAAAAVAAEAAAAAAAUAAAAVAP//AAAAAAMAAAAVAAAAAAAAAAQAAAAWAAEAAAABAAUAAAARAP//AAAAAAAAAAARAAAAAAACAAEAAAASAP//AAAAAAAAAAASAAAAAAACAAEAAAAJAAEAAAACAAEAAAAKAAEAAAACAAEAAAALAAEAAAACAAEAAAALAAIAAAAAAAEAAAAMAAIAAAAAAAEAAAANAAIAAAAAAAEAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAgAAIAAAACAAAAAAAgAAMAAAACAAEAAAAgAAQAAAACAAEAAAAhAAIAAAACAAAAAAAhAAMAAAACAAEAAAAhAAQAAAACAAEAAAAiAAAAAAAAAAMAAAAiAAEAAAAAAAUAAAAiAAIAAAACAAAAAAAiAAMAAAACAAEAAAAiAAQAAAACAAEAAAAjAAIAAAACAAAAAAAjAAMAAAACAAEAAAAjAAQAAAACAAEAAAAKAAgAAAAGAAAAAAAKAAkAAAAGAAEAAAALAAgAAAAGAAAAAAALAAkAAAAGAAEAAAAMAAgAAAAGAAAAAAAMAAkAAAAGAAEAAAAJAAgAAAAGAAAAAAAIAAgAAAAGAAAAAAAHAAgAAAAGAAEAAAAHAAcAAAAGAAAAAAAHAAkAAAAIAAEAAAAIAAkAAAAGAAEAAAAJAAkAAAAGAAEAAAARAAcAAAAGAAAAAAASAAcAAAAGAAAAAAATAAcAAAAGAAAAAAAUAAcAAAAJAAAAAAAVAAcAAAAKAAAAAAAWAAcAAAAKAAAAAAAXAAcAAAAKAAAAAAARAAgAAAAGAAEAAAARAAkAAAAGAAEAAAASAAUAAAAAAAMAAAASAAYAAAAAAAUAAAASAAgAAAAGAAEAAAASAAkAAAAGAAEAAAATAAYAAAABAAQAAAATAAgAAAAGAAEAAAATAAkAAAAGAAEAAAAYAAcAAAALAAAAAAAZAAcAAAAGAAAAAAAZAAgAAAAGAAEAAAAZAAkAAAAGAAEAAAAaAAcAAAAGAAAAAAAaAAgAAAAGAAEAAAAaAAkAAAAGAAEAAAAbAAYAAAABAAMAAAAbAAcAAAAGAAAAAAAbAAgAAAAGAAEAAAAbAAkAAAAGAAEAAAANAAgAAAAGAAAAAAAOAAgAAAAGAAAAAAAPAAgAAAAGAAAAAAAQAAgAAAAGAAAAAAANAAkAAAAGAAEAAAAOAAkAAAAGAAEAAAAPAAkAAAAGAAEAAAAQAAkAAAAGAAEAAAA=")
