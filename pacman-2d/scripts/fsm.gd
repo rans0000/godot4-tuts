@@ -2,13 +2,17 @@ extends Node
 class_name  StateMachine
 
 var states: Dictionary = {}
+var target:Node2D
 @export var  current_state:State
+@export var nav_agent:NavigationAgent2D
 
 func _ready() -> void:
 	for child in get_children():
-		if child is State:
+		if child is StateEnemy:
 			states[child.name.to_lower()] = child
 			child.transitioned.connect(on_state_transition)
+			child.nav_agent = nav_agent
+			child.target = target
 	print(states)
 	if(current_state):
 		current_state.enter()
@@ -19,9 +23,9 @@ func _process(_delta: float) -> void:
 		current_state.process()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if current_state:
-		current_state.physics_process()
+		current_state.physics_process(delta)
 
 
 func on_state_transition(state:State, new_state_name:String):

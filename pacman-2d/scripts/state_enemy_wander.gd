@@ -1,24 +1,24 @@
-extends State
-
-var timer:Timer;
+extends StateEnemy
 
 func _ready() -> void:
-	timer = Timer.new()
-	add_child(timer)
-	timer.one_shot = true
-	timer.connect("timeout", goto_idle)
+	target = Node2D.new()
+	target.position = Vector2(40, 50)
 
 func enter():
 	print('entering wander...')
-	timer.start()
+	nav_agent.target_position = target.global_position
 	pass
 
 func process():
 	print('in wander process...')
 	pass
 
-func physics_process():
+func physics_process(delta):
 	print('in wander physics...')
+	if !nav_agent.is_target_reached():
+		var dir = owner.tolocal(nav_agent.get_next_path_position()).normalized()
+		owner.velocity = dir*owner.SPEED  * delta
+		owner.move_and_slide()
 	pass
 
 func exit():

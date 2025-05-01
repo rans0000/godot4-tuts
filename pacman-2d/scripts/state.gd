@@ -9,7 +9,7 @@ func enter():
 func process():
 	pass
 
-func physics_process():
+func physics_process(_delta):
 	pass
 
 func exit():

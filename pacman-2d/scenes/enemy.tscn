@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://l3t5gtsj4h5t"]
+[gd_scene load_steps=12 format=3 uid="uid://l3t5gtsj4h5t"]
 
 [ext_resource type="Texture2D" uid="uid://b0yf3salaasnx" path="res://assets/sprites/pacman-spritesheet.png" id="1_7p1mj"]
-[ext_resource type="Script" uid="uid://cya4xfbojeyr1" path="res://scripts/state_machine.gd" id="2_md0e3"]
+[ext_resource type="Script" uid="uid://dv7t3hy3f5ylw" path="res://scripts/enemy.gd" id="1_c4w8v"]
+[ext_resource type="Script" uid="uid://cya4xfbojeyr1" path="res://scripts/fsm.gd" id="2_md0e3"]
 [ext_resource type="Script" uid="uid://leii2fdcfyqc" path="res://scripts/state_enemy_wander.gd" id="3_4ra3w"]
 [ext_resource type="Script" uid="uid://c1vjladpvy52s" path="res://scripts/state_enemy_idle.gd" id="3_5uy6h"]
 
@@ -60,6 +61,7 @@ animations = [{
 radius = 8.0
 
 [node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_c4w8v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.08, 0.08)
@@ -70,12 +72,18 @@ offset = Vector2(10, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7p1mj")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "nav_agent")]
 script = ExtResource("2_md0e3")
 current_state = NodePath("StateWander")
+nav_agent = NodePath("../NavigationAgent2D")
 
 [node name="StateIdle" type="Node" parent="StateMachine"]
 script = ExtResource("3_5uy6h")
 
 [node name="StateWander" type="Node" parent="StateMachine"]
 script = ExtResource("3_4ra3w")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+debug_enabled = true
