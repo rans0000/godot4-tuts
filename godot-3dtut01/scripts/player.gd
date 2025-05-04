@@ -16,11 +16,18 @@ extends CharacterBody3D
 
 var movement_input:= Vector2.ZERO
 var turning_speed := 12.0
+var defend := false:
+	set(value):
+		if not defend and value:
+			skin.play_defend_anim(true)
+		if defend and not value:
+			skin.play_defend_anim(false)
+		defend = value
 
 func _physics_process(delta: float) -> void:
 	actor_move(delta)
 	actor_jump(delta)
-	actor_attack()
+	actor_ability()
 	move_and_slide()
 
 
@@ -54,6 +61,7 @@ func actor_jump(delta: float) -> void:
 	velocity.y -= gravity * delta
 
 
-func actor_attack() -> void:
+func actor_ability() -> void:
 	if Input.is_action_just_pressed("ability"):
 		skin.play_attack_anim()
+	defend = Input.is_action_pressed("block")
