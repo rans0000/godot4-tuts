@@ -3,8 +3,8 @@ extends CharacterBody3D
 @export var jump_height := 2.25
 @export var jump_time_to_peak := 0.4
 @export var jump_time_to_descent := 0.3
-@export var base_speed := 8.0
-@export var run_speed := 24.0
+@export var base_speed := 4.0
+@export var run_speed := 12.0
 @export var acceleration := 2.0
 @export var deceleration := 4.0
 
@@ -12,13 +12,15 @@ extends CharacterBody3D
 @onready var jump_velocity:float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 @onready var jump_gravity:float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity:float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
+@onready var skin = $GodetteSkin
 
 var movement_input:= Vector2.ZERO
 var turning_speed := 12.0
 
 func _physics_process(delta: float) -> void:
 	actor_move(delta)
-	actor_jump(delta);
+	actor_jump(delta)
+	actor_attack()
 	move_and_slide()
 
 
@@ -33,9 +35,12 @@ func actor_move(delta:float) -> void:
 		
 		#align model to movement direction
 		var target_angle = movement_input.angle() - PI/2
-		$GodetteSkin.rotation.y = rotate_toward($GodetteSkin.rotation.y, -target_angle, turning_speed * delta) 
+		skin.rotation.y = rotate_toward($GodetteSkin.rotation.y, -target_angle, turning_speed * delta) 
+		#$GodetteSkin/AnimationPlayer.current_animation = "Running_B"
+		skin.set_move_state('Running')
 	else:
 		vel_2d = vel_2d.move_toward(Vector2.ZERO, base_speed * deceleration * delta)
+		skin.set_move_state('Idle')
 		
 	velocity.x = vel_2d.x
 	velocity.z = vel_2d.y
@@ -44,5 +49,11 @@ func actor_move(delta:float) -> void:
 func actor_jump(delta: float) -> void:
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = -jump_velocity
+		skin.set_move_state('Jump')
 	var gravity = jump_gravity if velocity.y > 0 else fall_gravity
 	velocity.y -= gravity * delta
+
+
+func actor_attack() -> void:
+	if Input.is_action_just_pressed("ability"):
+		skin.play_attack_anim()
