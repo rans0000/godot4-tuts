@@ -29,9 +29,6 @@ environment = SubResource("Environment_i2aat")
 transform = Transform3D(-0.195885, -0.867182, 0.457847, 0.0169138, 0.463835, 0.88576, -0.980481, 0.181251, -0.0761908, 2.60911, 2.41242, -0.125762)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.927569, -0.10626, 0.358224, 1.49012e-08, 0.958711, 0.284384, -0.373652, -0.263785, 0.88927, 1.11502, 1.76691, 2.39731)
-
 [node name="Entities" type="Node3D" parent="."]
 
 [node name="Player" parent="Entities" instance=ExtResource("1_m802k")]
@@ -42,3 +39,8 @@ transform = Transform3D(0.927569, -0.10626, 0.358224, 1.49012e-08, 0.958711, 0.2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 use_collision = true
 size = Vector3(40, 0.5, 40)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -9.945)
+use_collision = true
+size = Vector3(20, 5, 1)
