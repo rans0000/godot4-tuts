@@ -14,6 +14,7 @@ extends CharacterBody3D
 @onready var fall_gravity:float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
 var movement_input:= Vector2.ZERO
+var turning_speed := 12.0
 
 func _physics_process(delta: float) -> void:
 	actor_move(delta)
@@ -29,6 +30,10 @@ func actor_move(delta:float) -> void:
 		var max_speed = run_speed if Input.is_action_pressed("run") else  base_speed
 		vel_2d += movement_input * max_speed * acceleration * delta
 		vel_2d = vel_2d.limit_length(max_speed)
+		
+		#align model to movement direction
+		var target_angle = movement_input.angle() - PI/2
+		$GodetteSkin.rotation.y = rotate_toward($GodetteSkin.rotation.y, -target_angle, turning_speed * delta) 
 	else:
 		vel_2d = vel_2d.move_toward(Vector2.ZERO, base_speed * deceleration * delta)
 		
