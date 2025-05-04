@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://bg7opifxaynf8"]
+
+[ext_resource type="PackedScene" uid="uid://d14jx2pcmymj2" path="res://scenes/entities/player/player.tscn" id="1_m802k"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j28rk"]
+sky_top_color = Color(0.550447, 0.619948, 0.716746, 1)
+sky_horizon_color = Color(0.810847, 0.923181, 0.953428, 1)
+ground_bottom_color = Color(0.149835, 0.245209, 0.261124, 1)
+ground_horizon_color = Color(0.441227, 0.720237, 0.792533, 1)
+ground_curve = 0.0546417
+
+[sub_resource type="Sky" id="Sky_m802k"]
+sky_material = SubResource("ProceduralSkyMaterial_j28rk")
+
+[sub_resource type="Environment" id="Environment_i2aat"]
+background_mode = 2
+sky = SubResource("Sky_m802k")
+ambient_light_color = Color(0.207465, 3.91062e-08, 0.0762588, 1)
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Level01" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i2aat")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.195885, -0.867182, 0.457847, 0.0169138, 0.463835, 0.88576, -0.980481, 0.181251, -0.0761908, 2.60911, 2.41242, -0.125762)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.927569, -0.10626, 0.358224, 1.49012e-08, 0.958711, 0.284384, -0.373652, -0.263785, 0.88927, 1.11502, 1.76691, 2.39731)
+
+[node name="Entities" type="Node3D" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("1_m802k")]
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Ground" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+use_collision = true
+size = Vector3(40, 0.5, 40)
