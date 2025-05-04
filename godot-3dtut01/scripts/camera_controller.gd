@@ -17,3 +17,4 @@ func _input(event: InputEvent) -> void:
 func rotate_by_vector(v:Vector2):
 	if v.length_squared() == 0: return
 	rotation.y -= v.x
+	rotation.x = clamp(rotation.x - v.y, -0.5, 0.5)
