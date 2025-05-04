@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var jump_time_to_descent := 0.3
 @export var base_speed := 4.0
 @export var run_speed := 12.0
+@export var defend_speed := 0.5
 @export var acceleration := 2.0
 @export var deceleration := 4.0
 
@@ -37,6 +38,7 @@ func actor_move(delta:float) -> void:
 	
 	if movement_input != Vector2.ZERO:
 		var max_speed = run_speed if Input.is_action_pressed("run") else  base_speed
+		max_speed = defend_speed if defend else  max_speed
 		vel_2d += movement_input * max_speed * acceleration * delta
 		vel_2d = vel_2d.limit_length(max_speed)
 		
