@@ -35,9 +35,9 @@ import_script/path=""
 _subresources={
 "animations": {
 "1H_Melee_Attack_Chop": {
-"save_to_file/enabled": false,
+"save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": true,
-"save_to_file/path": "res://graphics/characters/godette/animations/chop.res",
+"save_to_file/path": "res://animations/chop_attack.res",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
@@ -1834,9 +1834,9 @@ _subresources={
 "slices/amount": 0
 },
 "1H_Melee_Attack_Slice_Horizontal": {
-"save_to_file/enabled": false,
+"save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": true,
-"save_to_file/path": "res://graphics/characters/godette/animations/slice.res",
+"save_to_file/path": "res://animations/slice_attack.res",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,

@@ -2,6 +2,7 @@ extends Node3D
 
 
 @onready var move_state_machine = $AnimationTree.get("parameters/move_state_machine/playback")
+var attacking := false
 
 
 func set_move_state(state:String) -> void:
@@ -9,7 +10,12 @@ func set_move_state(state:String) -> void:
 
 
 func play_attack_anim() ->void:
+	if attacking: return
 	$AnimationTree.set("parameters/attack_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+
+func toggle_attacking(status: bool) -> void:
+	attacking = status
 
 
 func play_defend_anim(forward:bool) -> void:

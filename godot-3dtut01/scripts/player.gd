@@ -5,7 +5,7 @@ extends CharacterBody3D
 @export var jump_time_to_descent := 0.3
 @export var base_speed := 4.0
 @export var run_speed := 12.0
-@export var defend_speed := 0.5
+@export var defend_speed := 1.0
 @export var acceleration := 2.0
 @export var deceleration := 4.0
 
