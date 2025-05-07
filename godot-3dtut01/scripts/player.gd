@@ -13,7 +13,7 @@ extends CharacterBody3D
 @onready var jump_velocity:float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 @onready var jump_gravity:float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity:float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
-@onready var skin = $GodetteSkin
+@onready var skin:PlayerSkin = $GodetteSkin
 
 var movement_input:= Vector2.ZERO
 var turning_speed := 12.0
@@ -24,11 +24,16 @@ var defend := false:
 		if defend and not value:
 			skin.play_defend_anim(false)
 		defend = value
+var is_meele := true
+
+
 
 func _physics_process(delta: float) -> void:
 	actor_move(delta)
 	actor_jump(delta)
 	actor_ability()
+	if Input.is_action_just_released("ui_accept"):
+		skin.get_hit()
 	move_and_slide()
 
 
@@ -45,7 +50,6 @@ func actor_move(delta:float) -> void:
 		#align model to movement direction
 		var target_angle = movement_input.angle() - PI/2
 		skin.rotation.y = rotate_toward($GodetteSkin.rotation.y, -target_angle, turning_speed * delta) 
-		#$GodetteSkin/AnimationPlayer.current_animation = "Running_B"
 		skin.set_move_state('Running')
 	else:
 		vel_2d = vel_2d.move_toward(Vector2.ZERO, base_speed * deceleration * delta)
@@ -64,6 +68,17 @@ func actor_jump(delta: float) -> void:
 
 
 func actor_ability() -> void:
+	# attack
 	if Input.is_action_just_pressed("ability"):
-		skin.play_attack_anim()
+		if is_meele:
+			skin.play_attack_anim()
+		else:
+			skin.play_spellcast_anim()
+	
+	# defend
 	defend = Input.is_action_pressed("block")
+	
+	#switch attack mode
+	if Input.is_action_just_pressed("switch weapon") and  not skin.attacking:
+		is_meele = not is_meele;
+		skin.switch_weapon(is_meele)
