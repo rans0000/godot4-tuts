@@ -7,6 +7,11 @@ class_name ActorSkin
 @onready var attack_state_machine = $AnimationTree.get("parameters/attack_state_machine/playback")
 @onready var extra_animation = $AnimationTree.get_tree_root().get_node('extra_animation')
 var attacking := false
+var squash_and_stretch := 1.0:
+	set(value):
+		var negative = 1.0 + (1 - squash_and_stretch) * 0.3
+		squash_and_stretch = value
+		scale = Vector3(negative, squash_and_stretch, negative)
 
 
 func set_move_state(state:String) -> void:

@@ -63,6 +63,7 @@ func actor_jump(delta: float) -> void:
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = -jump_velocity
 		skin.set_move_state('Jump')
+		actor_squash_and_stretch(1.2, 0.15)
 	var gravity = jump_gravity if velocity.y > 0 else fall_gravity
 	velocity.y -= gravity * delta
 
@@ -95,3 +96,9 @@ func stop_movement(start_duration: float, end_duration: float) -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "speed_modifier", 0.0, start_duration)
 	tween.tween_property(self, "speed_modifier", 1.0, end_duration)
+
+
+func actor_squash_and_stretch(target: float, duration: float)-> void:
+	var tween = create_tween()
+	tween.tween_property(skin, "squash_and_stretch", target, duration)
+	tween.tween_property(skin, "squash_and_stretch", 1, duration * 1.8).set_ease(Tween.EASE_IN)
