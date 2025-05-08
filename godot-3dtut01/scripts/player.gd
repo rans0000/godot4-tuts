@@ -90,6 +90,7 @@ func actor_get_hit() -> void:
 	if Input.is_action_just_released("ui_accept"):
 		skin.get_hit()
 		stop_movement(0.3, 0.3)
+		skin.change_face('angry')
 
 
 func stop_movement(start_duration: float, end_duration: float) -> void:
