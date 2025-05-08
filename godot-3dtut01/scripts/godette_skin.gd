@@ -1,6 +1,6 @@
 extends Node3D
 
-class_name PlayerSkin
+class_name ActorSkin
 
 
 @onready var move_state_machine = $AnimationTree.get("parameters/move_state_machine/playback")

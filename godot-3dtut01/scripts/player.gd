@@ -13,7 +13,7 @@ extends CharacterBody3D
 @onready var jump_velocity:float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 @onready var jump_gravity:float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity:float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
-@onready var skin:PlayerSkin = $GodetteSkin
+@onready var skin:ActorSkin = $GodetteSkin
 
 var movement_input:= Vector2.ZERO
 var turning_speed := 12.0
@@ -32,8 +32,7 @@ func _physics_process(delta: float) -> void:
 	actor_move(delta)
 	actor_jump(delta)
 	actor_ability()
-	if Input.is_action_just_released("ui_accept"):
-		skin.get_hit()
+	actor_get_hit()
 	move_and_slide()
 
 
@@ -82,3 +81,8 @@ func actor_ability() -> void:
 	if Input.is_action_just_pressed("switch weapon") and  not skin.attacking:
 		is_meele = not is_meele;
 		skin.switch_weapon(is_meele)
+
+
+func actor_get_hit() -> void:
+	if Input.is_action_just_released("ui_accept"):
+		skin.get_hit()
