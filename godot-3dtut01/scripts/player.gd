@@ -25,6 +25,7 @@ var defend := false:
 			skin.play_defend_anim(false)
 		defend = value
 var is_meele := true
+var speed_modifier := 1.0
 
 
 
@@ -44,7 +45,7 @@ func actor_move(delta:float) -> void:
 		var max_speed = run_speed if Input.is_action_pressed("run") else  base_speed
 		max_speed = defend_speed if defend else  max_speed
 		vel_2d += movement_input * max_speed * acceleration * delta
-		vel_2d = vel_2d.limit_length(max_speed)
+		vel_2d = vel_2d.limit_length(max_speed) * speed_modifier
 		
 		#align model to movement direction
 		var target_angle = movement_input.angle() - PI/2
@@ -73,6 +74,7 @@ func actor_ability() -> void:
 			skin.play_attack_anim()
 		else:
 			skin.play_spellcast_anim()
+			stop_movement(0.3, 0.8)
 	
 	# defend
 	defend = Input.is_action_pressed("block")
@@ -86,3 +88,10 @@ func actor_ability() -> void:
 func actor_get_hit() -> void:
 	if Input.is_action_just_released("ui_accept"):
 		skin.get_hit()
+		stop_movement(0.3, 0.3)
+
+
+func stop_movement(start_duration: float, end_duration: float) -> void:
+	var tween = create_tween()
+	tween.tween_property(self, "speed_modifier", 0.0, start_duration)
+	tween.tween_property(self, "speed_modifier", 1.0, end_duration)
