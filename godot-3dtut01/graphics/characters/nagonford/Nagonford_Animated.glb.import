@@ -1836,7 +1836,7 @@ _subresources={
 "2H_Melee_Attack_Slice": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": true,
-"save_to_file/path": "res://graphics/characters/nagonford/boss_slice.res",
+"save_to_file/path": "res://animations/boss_slice.res",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
@@ -3635,7 +3635,7 @@ _subresources={
 "2H_Melee_Attack_Spin": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": true,
-"save_to_file/path": "res://graphics/characters/nagonford/boss_spin.res",
+"save_to_file/path": "res://animations/boss_spin.res",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
