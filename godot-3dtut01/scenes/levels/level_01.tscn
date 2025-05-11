@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bg7opifxaynf8"]
+[gd_scene load_steps=6 format=3 uid="uid://bg7opifxaynf8"]
 
 [ext_resource type="PackedScene" uid="uid://d14jx2pcmymj2" path="res://scenes/entities/player/player.tscn" id="1_m802k"]
+[ext_resource type="PackedScene" uid="uid://dxnqgpjdtyxjj" path="res://scenes/entities/enemies/boss.tscn" id="2_i2aat"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j28rk"]
 sky_top_color = Color(0.550447, 0.619948, 0.716746, 1)
@@ -32,6 +33,12 @@ shadow_enabled = true
 [node name="Entities" type="Node3D" parent="."]
 
 [node name="Player" parent="Entities" instance=ExtResource("1_m802k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.59261, 0, 4.78496)
+
+[node name="Boss" parent="Entities" instance=ExtResource("2_i2aat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6691, 0, -19.1013)
+collision_layer = 1
+collision_mask = 1
 
 [node name="Map" type="Node3D" parent="."]
 
